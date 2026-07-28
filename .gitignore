@@ -1,0 +1,10 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!gradle/wrapper/gradle-wrapper.jar
+.idea/
+.vscode/
+*.iws
+*.iml
+*.ipr
+.DS_Store
