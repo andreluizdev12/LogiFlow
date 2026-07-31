@@ -1,6 +1,5 @@
-package com.github.andreluizdev12.logiflow.controller.dtos;
+package com.github.andreluizdev12.logiflow.controller.dto;
 
-import com.github.andreluizdev12.logiflow.domain.client.PersonType;
 import com.github.andreluizdev12.logiflow.domain.client.StatusClient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
