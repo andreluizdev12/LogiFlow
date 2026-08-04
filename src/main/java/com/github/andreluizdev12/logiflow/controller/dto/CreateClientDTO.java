@@ -12,7 +12,7 @@ public record CreateClientDTO(
 
         String externalId,
 
-        Long sourceSystem,
+        String  sourceSystem,
 
         @NotNull(message = "O tipo de pessoa é obrigatório")
         PersonType personType,
@@ -25,7 +25,8 @@ public record CreateClientDTO(
         )
         String name,
 
-        String documento,
+        @NotBlank(message = "O documento é obrigatório")
+        String document,
 
         @Pattern(
                 regexp = "^[0-9]+$",
@@ -34,8 +35,8 @@ public record CreateClientDTO(
         String telefone,
 
         @Email(message = "Formato de e-mail inválido")
-        String email,
+        @NotBlank
+        String email
 
-        StatusClient status
 ) {
 }

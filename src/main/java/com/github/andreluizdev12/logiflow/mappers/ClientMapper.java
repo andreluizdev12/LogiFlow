@@ -16,10 +16,9 @@ public class ClientMapper {
         client.setSourceSystem(request.sourceSystem());
         client.setPersonType(request.personType());
         client.setName(request.name());
-        client.setDocumento(request.documento());
-        client.setTelefone(request.telefone());
-        client.setEmail(request.email());
-        client.setStatus(request.status());
+//        client.setDocument(request.document());
+        client.changePhone(request.telefone());
+        client.changeEmail(request.email());
 
         return client;
     }
@@ -31,9 +30,9 @@ public class ClientMapper {
                 client.getSourceSystem(),
                 client.getPersonType(),
                 client.getName(),
-                client.getDocumento(),
+                client.getDocument().value(),
                 client.getTelefone(),
-                client.getEmail(),
+                client.getEmail().value(),
                 client.getStatus(),
                 client.getCreatedOn(),
                 client.getUpdatedOn()

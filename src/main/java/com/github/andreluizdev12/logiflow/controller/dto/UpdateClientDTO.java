@@ -14,7 +14,7 @@ public record UpdateClientDTO(
         )
         String name,
 
-        String documento,
+        String document,
 
         @Pattern(
                 regexp = "^[0-9]+$",

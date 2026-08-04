@@ -9,10 +9,10 @@ import java.util.UUID;
 public record ClientResponseDTO(
         UUID id,
         String externalId,
-        Long sourceSystem,
+        String  sourceSystem,
         PersonType personType,
         String name,
-        String documento,
+        String document,
         String telefone,
         String email,
         StatusClient status,
