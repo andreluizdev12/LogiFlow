@@ -31,8 +31,18 @@ public class ClientService {
         logger.info("User with id: " + newClient + " created");
         return  repository.save(newClient);
 
-
     }
+
+    @Transactional
+    public Client getById (UUID id){
+        logger.info("Searching for client with id: " + id);
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No client exists with this ID."));
+    }
+
+
+
+
 
 
 }
