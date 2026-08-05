@@ -1,6 +1,6 @@
-package com.github.andreluizdev12.logiflow.domain.client.converter;
+package com.github.andreluizdev12.logiflow.client.domain.client.converter;
 
-import com.github.andreluizdev12.logiflow.domain.client.vos.Document;
+import com.github.andreluizdev12.logiflow.client.domain.client.vos.Document;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

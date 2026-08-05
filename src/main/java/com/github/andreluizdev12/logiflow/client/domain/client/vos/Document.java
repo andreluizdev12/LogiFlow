@@ -1,4 +1,4 @@
-package com.github.andreluizdev12.logiflow.domain.client.vos;
+package com.github.andreluizdev12.logiflow.client.domain.client.vos;
 
 
 import java.util.Objects;

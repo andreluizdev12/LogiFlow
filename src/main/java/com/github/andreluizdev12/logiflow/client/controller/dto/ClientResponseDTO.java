@@ -1,7 +1,7 @@
-package com.github.andreluizdev12.logiflow.controller.dto;
+package com.github.andreluizdev12.logiflow.client.controller.dto;
 
-import com.github.andreluizdev12.logiflow.domain.client.PersonType;
-import com.github.andreluizdev12.logiflow.domain.client.StatusClient;
+import com.github.andreluizdev12.logiflow.client.domain.client.PersonType;
+import com.github.andreluizdev12.logiflow.client.domain.client.StatusClient;
 
 import java.time.Instant;
 import java.util.UUID;

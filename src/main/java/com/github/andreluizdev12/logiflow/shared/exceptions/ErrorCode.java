@@ -1,0 +1,12 @@
+package com.github.andreluizdev12.logiflow.shared.exceptions;
+
+public enum ErrorCode {
+
+    CLIENT_NOT_FOUND,
+    CLIENT_ALREADY_EXISTS,
+    INVALID_DOCUMENT,
+    VALIDATION_ERROR,
+    BUSINESS_RULE_VIOLATION,
+    INTERNAL_SERVER_ERROR
+
+}

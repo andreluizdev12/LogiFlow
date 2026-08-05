@@ -1,8 +1,8 @@
-package com.github.andreluizdev12.logiflow.domain.client;
+package com.github.andreluizdev12.logiflow.client.domain.client;
 
-import com.github.andreluizdev12.logiflow.domain.client.converter.DocumentConverter;
-import com.github.andreluizdev12.logiflow.domain.client.vos.Document;
-import com.github.andreluizdev12.logiflow.domain.client.vos.Email;
+import com.github.andreluizdev12.logiflow.client.domain.client.converter.DocumentConverter;
+import com.github.andreluizdev12.logiflow.client.domain.client.vos.Document;
+import com.github.andreluizdev12.logiflow.client.domain.client.vos.Email;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -51,6 +51,7 @@ public class Client {
     private Email email;
 
     @Enumerated(EnumType.STRING)
+    @Setter(AccessLevel.NONE)
     private StatusClient status;
 
     @Column(name = "criado_em", nullable = false, updatable = false)
@@ -64,7 +65,7 @@ public class Client {
         this.externalId = externalId.trim();
         this.sourceSystem = sourceSystem.trim();
         this.personType = personType;
-        this.name = verifyName(name);
+        changeName(name);
         this.telefone =  normalizePhone(telefone);
         this.email =  Email.of(email);
         this.document = Document.of(document);
@@ -99,8 +100,33 @@ public class Client {
     }
 
 
+    public void update(String name,  String email, String telefone) {
+        if(name != null) {
+            changeName(name);
+        }
+        if(email != null) {
+            changeEmail(email);
+        }
+        if(telefone != null) {
+            changePhone(telefone);
+        }
+        this.updatedOn = Instant.now();
+    }
+
+
     public void changeEmail(String email) {
         this.email = Email.of(email);
+        this.updatedOn = Instant.now();
+    }
+
+    public void ativar() {
+        this.status =StatusClient.ATIVO;
+        this.updatedOn = Instant.now();
+    }
+
+
+    public void desativar() {
+        this.status =StatusClient.INATIVO;
         this.updatedOn = Instant.now();
     }
 
@@ -146,13 +172,15 @@ public class Client {
                 '}';
     }
 
-    private String verifyName(String name){
+    public void changeName(String name){
 
         if(name == null || name.trim().length() < 3|| name.trim().length() > 150){
             throw new IllegalArgumentException(
                     "O nome deve ter mais de 3 caracteres e menos de 150"
             );
         }
-        return  name.trim();
+        this.name = name.trim();
     }
+
+
 }

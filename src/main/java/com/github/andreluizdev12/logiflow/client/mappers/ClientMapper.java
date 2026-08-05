@@ -1,8 +1,8 @@
-package com.github.andreluizdev12.logiflow.mappers;
+package com.github.andreluizdev12.logiflow.client.mappers;
 
-import com.github.andreluizdev12.logiflow.controller.dto.ClientResponseDTO;
-import com.github.andreluizdev12.logiflow.controller.dto.CreateClientDTO;
-import com.github.andreluizdev12.logiflow.domain.client.Client;
+import com.github.andreluizdev12.logiflow.client.controller.dto.ClientResponseDTO;
+import com.github.andreluizdev12.logiflow.client.controller.dto.CreateClientDTO;
+import com.github.andreluizdev12.logiflow.client.domain.client.Client;
 
 import org.springframework.stereotype.Component;
 

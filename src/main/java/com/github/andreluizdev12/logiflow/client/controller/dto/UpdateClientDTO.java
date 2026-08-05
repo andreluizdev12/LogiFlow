@@ -1,20 +1,13 @@
-package com.github.andreluizdev12.logiflow.controller.dto;
+package com.github.andreluizdev12.logiflow.client.controller.dto;
 
-import com.github.andreluizdev12.logiflow.domain.client.StatusClient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record UpdateClientDTO(
 
-        @Size(
-                min = 3,
-                max = 150,
-                message = "O nome deve ter entre 3 e 150 caracteres"
-        )
+        @Size(min = 3, max = 150)
         String name,
-
-        String document,
 
         @Pattern(
                 regexp = "^[0-9]+$",
@@ -23,8 +16,6 @@ public record UpdateClientDTO(
         String telefone,
 
         @Email(message = "Formato de e-mail inválido")
-        String email,
-
-        StatusClient status
+        String email
 ) {
 }
