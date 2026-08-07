@@ -1,7 +1,7 @@
 package com.github.andreluizdev12.logiflow.client.repositorys;
 
-import com.github.andreluizdev12.logiflow.client.domain.client.Client;
-import com.github.andreluizdev12.logiflow.client.domain.client.vos.Document;
+import com.github.andreluizdev12.logiflow.client.domain.Client;
+import com.github.andreluizdev12.logiflow.client.domain.vos.Document;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

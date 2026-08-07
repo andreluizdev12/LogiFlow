@@ -1,8 +1,10 @@
-package com.github.andreluizdev12.logiflow.client.domain.client;
+package com.github.andreluizdev12.logiflow.client.domain;
 
-import com.github.andreluizdev12.logiflow.client.domain.client.converter.DocumentConverter;
-import com.github.andreluizdev12.logiflow.client.domain.client.vos.Document;
-import com.github.andreluizdev12.logiflow.client.domain.client.vos.Email;
+import com.github.andreluizdev12.logiflow.client.domain.converter.DocumentConverter;
+import com.github.andreluizdev12.logiflow.client.domain.enums.PersonType;
+import com.github.andreluizdev12.logiflow.client.domain.enums.StatusClient;
+import com.github.andreluizdev12.logiflow.client.domain.vos.Document;
+import com.github.andreluizdev12.logiflow.client.domain.vos.Email;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;

@@ -2,8 +2,8 @@ package com.github.andreluizdev12.logiflow.client.service;
 
 import com.github.andreluizdev12.logiflow.client.controller.dto.CreateClientDTO;
 import com.github.andreluizdev12.logiflow.client.controller.dto.UpdateClientDTO;
-import com.github.andreluizdev12.logiflow.client.domain.client.Client;
-import com.github.andreluizdev12.logiflow.client.domain.client.vos.Document;
+import com.github.andreluizdev12.logiflow.client.domain.Client;
+import com.github.andreluizdev12.logiflow.client.domain.vos.Document;
 import com.github.andreluizdev12.logiflow.client.exceptions.ClientAlreadyExistsException;
 import com.github.andreluizdev12.logiflow.client.exceptions.ClientNotFoundException;
 import com.github.andreluizdev12.logiflow.client.mappers.ClientMapper;
