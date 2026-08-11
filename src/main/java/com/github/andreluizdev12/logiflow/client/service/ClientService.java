@@ -35,7 +35,6 @@ public class ClientService {
         Client newClient = Client.build(dto.externalId(),dto.sourceSystem(),dto.personType(), dto.name(), dto.document(), dto.telefone(), dto.email());
         logger.info("User with id: " + newClient + " created");
         return  repository.save(newClient);
-
     }
 
     @Transactional(readOnly = true)
@@ -59,6 +58,9 @@ public class ClientService {
         user.desativar();
         repository.save(user);
     }
+
+
+
 
 
     @Transactional
