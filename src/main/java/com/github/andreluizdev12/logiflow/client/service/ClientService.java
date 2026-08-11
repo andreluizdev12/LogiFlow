@@ -18,12 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 @Service
 public class ClientService {
-    public ClientService(ClientMapper mapper, ClientRepository clientRepository) {
-        this.mapper = mapper;
+    public ClientService( ClientRepository clientRepository) {
         this.repository = clientRepository;
     }
     private  final Logger logger = LoggerFactory.getLogger(ClientService.class);
-    private final ClientMapper mapper;
     private  final ClientRepository repository;
 
     @Transactional
@@ -32,6 +30,7 @@ public class ClientService {
         if(repository.existsByDocument(Document.of(dto.document()))){
             throw  new ClientAlreadyExistsException(dto.document());
         }
+
         Client newClient = Client.build(dto.externalId(),dto.sourceSystem(),dto.personType(), dto.name(), dto.document(), dto.telefone(), dto.email());
         logger.info("User with id: " + newClient + " created");
         return  repository.save(newClient);
@@ -58,8 +57,6 @@ public class ClientService {
         user.desativar();
         repository.save(user);
     }
-
-
 
 
 
