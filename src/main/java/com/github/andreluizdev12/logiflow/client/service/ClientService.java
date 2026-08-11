@@ -28,6 +28,7 @@ public class ClientService {
 
     @Transactional
     public Client create (CreateClientDTO dto){
+        logger.info("Creating a user....");
         if(repository.existsByDocument(Document.of(dto.document()))){
             throw  new ClientAlreadyExistsException(dto.document());
         }
@@ -57,6 +58,9 @@ public class ClientService {
         user.desativar();
         repository.save(user);
     }
+
+
+
 
 
     @Transactional
