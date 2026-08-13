@@ -16,7 +16,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "client")
 @Getter
-@Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Client {
@@ -31,7 +30,7 @@ public class Client {
     private String  sourceSystem;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_pessoa", nullable = false)
+    @Column(name = "tipo_pessoa", nullable = false, length = 20)
     private PersonType personType;
 
     @Column(name = "nome", nullable = false, length = 150)
@@ -43,17 +42,19 @@ public class Client {
     private Document document;
 
     @Pattern(regexp = "^[0-9]+$", message = "O telefone deve conter apenas números")
+    @Column(name = "telefone", length = 11)
     @Setter(AccessLevel.NONE)
     private String telefone;
 
     @Embedded
     @AttributeOverride(
             name = "value",
-            column = @Column(name = "email", nullable = false)
+            column = @Column(name = "email", nullable = false, length = 150)
     )
     private Email email;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false, length = 20)
     @Setter(AccessLevel.NONE)
     private StatusClient status;
 
@@ -65,9 +66,9 @@ public class Client {
 
     private Client(String externalId, String sourceSystem, PersonType personType, String name, String document, String telefone, String email) {
         this.id = UUID.randomUUID();
-        this.externalId = externalId.trim();
-        this.sourceSystem = sourceSystem.trim();
-        this.personType = personType;
+        this.externalId = normalizeRequired(externalId, "O identificador externo é obrigatório");
+        this.sourceSystem = normalizeRequired(sourceSystem, "O sistema de origem é obrigatório");
+        this.personType = requirePersonType(personType);
         changeName(name);
         this.telefone =  normalizePhone(telefone);
         this.email =  Email.of(email);
@@ -158,6 +159,20 @@ public class Client {
         return normalized;
     }
 
+    private static String normalizeRequired(String value, String message) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException(message);
+        }
+        return value.trim();
+    }
+
+    private static PersonType requirePersonType(PersonType personType) {
+        if (personType == null) {
+            throw new IllegalArgumentException("O tipo de pessoa é obrigatório");
+        }
+        return personType;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
@@ -177,9 +192,9 @@ public class Client {
 
     public void changeName(String name){
 
-        if(name == null || name.trim().length() < 3|| name.trim().length() > 150){
+        if (name == null || name.trim().length() < 3 || name.trim().length() > 150) {
             throw new IllegalArgumentException(
-                    "O nome deve ter mais de 3 caracteres e menos de 150"
+                    "O nome deve ter entre 3 e 150 caracteres"
             );
         }
         this.name = name.trim();

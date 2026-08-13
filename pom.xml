@@ -8,11 +8,11 @@
 		<version>4.1.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>https.github.com.andreluizdev12.logiflow</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>com.github.andreluizdev12</groupId>
+	<artifactId>logiflow</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>LogiFlow</name>
+	<description>API para gestão de operações logísticas</description>
 	<url/>
 	<licenses>
 		<license/>
