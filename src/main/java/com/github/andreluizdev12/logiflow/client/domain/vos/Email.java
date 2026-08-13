@@ -8,8 +8,12 @@ import java.util.regex.Pattern;
 @Embeddable
 public class Email {
 
+    private static final int MAX_LENGTH = 150;
+
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
-            "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+            "^[A-Za-z0-9+_-]+(?:\\.[A-Za-z0-9+_-]+)*@" +
+            "(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\\.)+" +
+            "[A-Za-z]{2,}$"
     );
 
     private String value;
@@ -28,6 +32,12 @@ public class Email {
         }
 
         String normalized = email.trim().toLowerCase();
+
+        if (normalized.length() > MAX_LENGTH) {
+            throw new IllegalArgumentException(
+                    "E-mail deve possuir no máximo " + MAX_LENGTH + " caracteres"
+            );
+        }
 
         if (!EMAIL_PATTERN.matcher(normalized).matches()) {
             throw new IllegalArgumentException("E-mail inválido");

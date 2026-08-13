@@ -5,6 +5,7 @@ import com.github.andreluizdev12.logiflow.client.domain.enums.PersonType;
 import com.github.andreluizdev12.logiflow.client.domain.enums.StatusClient;
 import com.github.andreluizdev12.logiflow.client.domain.vos.Document;
 import com.github.andreluizdev12.logiflow.client.domain.vos.Email;
+import com.github.andreluizdev12.logiflow.client.exceptions.InvalidDocumentForPersonTypeException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -83,13 +84,13 @@ public class Client {
 
     private void validateDocumentType() {
         if (personType == PersonType.PESSOA_FISICA && !document.isCpf()) {
-            throw new IllegalArgumentException(
+            throw new InvalidDocumentForPersonTypeException(
                     "Pessoa física deve possuir CPF"
             );
         }
 
         if (personType == PersonType.PESSOA_JURIDICA && !document.isCnpj()) {
-            throw new IllegalArgumentException(
+            throw new InvalidDocumentForPersonTypeException(
                     "Pessoa jurídica deve possuir CNPJ"
             );
         }
