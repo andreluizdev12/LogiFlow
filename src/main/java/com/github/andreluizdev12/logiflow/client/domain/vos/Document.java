@@ -1,6 +1,8 @@
 package com.github.andreluizdev12.logiflow.client.domain.vos;
 
 
+import com.github.andreluizdev12.logiflow.client.exceptions.DocumentInvalidException;
+
 import java.util.Objects;
 
 public final class Document {
@@ -15,20 +17,20 @@ public final class Document {
 
     public static Document of(String document) {
         if (document == null || document.isBlank()) {
-            throw new Document("The document is mandatory.");
+            throw new DocumentInvalidException("The document is mandatory.");
         }
 
         String normalized = normalize(document);
 
         if (!normalized.matches("\\d+")) {
-            throw new IllegalArgumentException(
+            throw new DocumentInvalidException(
                 "O documento deve conter apenas números"
             );
         }
 
         if (normalized.length() == 11) {
             if (!isValidCpf(normalized)) {
-                throw new IllegalArgumentException("CPF inválido");
+                throw new DocumentInvalidException("CPF inválido");
             }
 
             return new Document(normalized, DocumentType.CPF);
@@ -36,13 +38,13 @@ public final class Document {
 
         if (normalized.length() == 14) {
             if (!isValidCnpj(normalized)) {
-                throw new IllegalArgumentException("CNPJ inválido");
+                throw new DocumentInvalidException("CNPJ inválido");
             }
 
             return new Document(normalized, DocumentType.CNPJ);
         }
 
-        throw new IllegalArgumentException(
+        throw new DocumentInvalidException(
             "O documento deve possuir 11 dígitos para CPF ou 14 para CNPJ"
         );
     }
