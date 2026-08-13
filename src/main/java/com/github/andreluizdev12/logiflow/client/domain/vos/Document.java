@@ -15,7 +15,7 @@ public final class Document {
 
     public static Document of(String document) {
         if (document == null || document.isBlank()) {
-            throw new IllegalArgumentException("O documento é obrigatório");
+            throw new Document("The document is mandatory.");
         }
 
         String normalized = normalize(document);

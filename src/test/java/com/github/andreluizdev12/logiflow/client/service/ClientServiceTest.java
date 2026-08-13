@@ -80,7 +80,7 @@ class ClientServiceTest {
 
 
         @Test
-      void create_shouldThrowClientNotFoundExceptionWhenIdDoesNotExist () {
+      void create_shouldNotSaveClientWhenDocumentIsInvalid () {
             CreateClientDTO dto = new CreateClientDTO(
                     "CLI-001", "ERP", PersonType.PESSOA_FISICA, "João da Silva",
                     "095-326-265.06", "31999998888", "joao.silva@email.com");
@@ -308,9 +308,9 @@ class ClientServiceTest {
 
 
         var dto =  new UpdateClientDTO(
-                "João da Silva",
-                "(31) 99999-8888",
-                "joao@email.com"
+                "João Silva",
+                "(31) 2329-8888",
+                "joao.silva@email.com"
         );
         var id = client.getId();
 
@@ -321,16 +321,42 @@ class ClientServiceTest {
 
         var result = clientService.update(id,dto);
 
-        assertSame(client, result);
 
         assertAll(
-                () -> assertEquals("09532626506", result.getDocument().value()),
-                () -> assertEquals("31999998888", result.getTelefone()),
+                () -> assertEquals("João Silva", result.getName()),
+                () -> assertEquals("3123298888", result.getTelefone()),
                 () -> assertEquals("joao.silva@email.com", result.getEmail().value())
         );
 
         verify(repository).findById(id);
         verify(repository).save(client);
+    }
+
+    @Test
+    public void updtate_shouldThrowClientNotFoundExceptionWhenIdDoesNotExist () {
+        var client = Client.build(
+                "CLI-001",
+                "ERP",
+                PersonType.PESSOA_FISICA,
+                "João da Silva",
+                "095.326.265-06",
+                "(31) 99999-8888",
+                "joao@email.com"
+        );
+
+        var dto =  new UpdateClientDTO(
+                "João Silva",
+                "(31) 2329-8888",
+                "joao.silva@email.com"
+        );
+        var id = client.getId();
+
+        when(repository.findById(id))
+                .thenReturn(Optional.empty());
+
+        assertThrows(ClientNotFoundException.class, () -> clientService.update(id,dto));
+
+        verify(repository).findById(id);
     }
 }
 
