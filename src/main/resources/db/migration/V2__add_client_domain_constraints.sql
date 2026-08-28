@@ -1,4 +1,4 @@
-UPDATE client
+xsUPDATE client
 SET status = 'ATIVO'
 WHERE status IS NULL;
 
