@@ -1,6 +1,10 @@
-xsUPDATE client
+UPDATE client
 SET status = 'ATIVO'
 WHERE status IS NULL;
+
+UPDATE client
+SET documento = regexp_replace(documento, '[^0-9]', '', 'g'),
+    nome = trim(nome);
 
 DROP INDEX IF EXISTS idx_client_documento;
 
