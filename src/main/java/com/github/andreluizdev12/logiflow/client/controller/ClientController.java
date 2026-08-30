@@ -6,18 +6,19 @@ import com.github.andreluizdev12.logiflow.client.controller.dto.CreateClientDTO;
 import com.github.andreluizdev12.logiflow.client.controller.dto.UpdateClientDTO;
 import com.github.andreluizdev12.logiflow.client.mappers.ClientMapper;
 import com.github.andreluizdev12.logiflow.client.service.ClientService;
+import com.github.andreluizdev12.logiflow.shared.dto.PageResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -61,13 +62,12 @@ public class ClientController {
 
     @GetMapping
     @Operation(summary = "Listar clientes")
-    public ResponseEntity<List<ClientResponseDTO>> getAll(
+    public ResponseEntity<PageResponseDTO<ClientResponseDTO>> getAll(
             @PageableDefault(size = 10, page = 0, sort = "name") Pageable pageable
     ) {
-        var clientes = clientService.getAll(pageable);
-        return ResponseEntity.ok(clientes.stream()
-                .map(mapper::toResponse)
-                .toList());
+        Page<ClientResponseDTO> clientes = clientService.getAll(pageable)
+                .map(mapper::toResponse);
+        return ResponseEntity.ok(PageResponseDTO.from(clientes));
     }
 
     @DeleteMapping("/{id}")

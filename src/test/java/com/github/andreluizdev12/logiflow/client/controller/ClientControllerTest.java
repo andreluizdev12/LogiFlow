@@ -198,9 +198,12 @@ class ClientControllerTest {
 
         mockMvc.perform(get("/clients").param("page", "0").param("size", "10"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(2))
-                .andExpect(jsonPath("$[0].name").value("João da Silva"))
-                .andExpect(jsonPath("$[1].name").value("Maria Silva"));
+                .andExpect(jsonPath("$.content.length()").value(2))
+                .andExpect(jsonPath("$.content[0].name").value("João da Silva"))
+                .andExpect(jsonPath("$.content[1].name").value("Maria Silva"))
+                .andExpect(jsonPath("$.totalElements").value(2))
+                .andExpect(jsonPath("$.totalPages").value(1))
+                .andExpect(jsonPath("$.page").value(0));
 
         verify(clientService).getAll(any(Pageable.class));
     }
