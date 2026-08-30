@@ -33,9 +33,16 @@ Crie o banco vazio:
 CREATE DATABASE logiflow;
 ```
 
-Confira a conexão em `src/main/resources/application.yaml` e execute:
+A conexão é configurada por variáveis de ambiente (veja `src/main/resources/application.yaml`):
+
+| Variável | Obrigatória | Padrão |
+|---|---|---|
+| `DB_URL` | não | `jdbc:postgresql://localhost:5432/logiflow` |
+| `DB_USERNAME` | não | `postgres` |
+| `DB_PASSWORD` | sim | — |
 
 ```bash
+export DB_PASSWORD=sua_senha
 mvn spring-boot:run
 ```
 
