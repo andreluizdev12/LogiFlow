@@ -1,5 +1,6 @@
 package com.github.andreluizdev12.logiflow.client.domain.vos;
 
+import com.github.andreluizdev12.logiflow.client.exceptions.EmailInvalidException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -36,7 +37,7 @@ class EmailTest {
     @NullAndEmptySource
     @ValueSource(strings = {" ", "\t", "\n"})
     void of_shouldRejectNullBlankOrEmptyEmail(String rawEmail) {
-        assertThrows(IllegalArgumentException.class, () -> Email.of(rawEmail));
+        assertThrows(EmailInvalidException.class, () -> Email.of(rawEmail));
     }
 
     @ParameterizedTest
@@ -51,7 +52,7 @@ class EmailTest {
             "joao@email,com"
     })
     void of_shouldRejectEmailWithInvalidFormat(String rawEmail) {
-        assertThrows(IllegalArgumentException.class, () -> Email.of(rawEmail));
+        assertThrows(EmailInvalidException.class, () -> Email.of(rawEmail));
     }
 
     @ParameterizedTest
@@ -65,7 +66,7 @@ class EmailTest {
             "joao@email_com.com"
     })
     void of_shouldRejectStructurallyInvalidEmail(String rawEmail) {
-        assertThrows(IllegalArgumentException.class, () -> Email.of(rawEmail));
+        assertThrows(EmailInvalidException.class, () -> Email.of(rawEmail));
     }
 
     @Test
@@ -81,7 +82,7 @@ class EmailTest {
     void of_shouldRejectEmailLongerThanMaximumLength() {
         var rawEmail = "a".repeat(141) + "@email.com";
 
-        assertThrows(IllegalArgumentException.class, () -> Email.of(rawEmail));
+        assertThrows(EmailInvalidException.class, () -> Email.of(rawEmail));
     }
 
     @Test

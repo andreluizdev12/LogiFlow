@@ -5,7 +5,9 @@ import com.github.andreluizdev12.logiflow.client.domain.enums.PersonType;
 import com.github.andreluizdev12.logiflow.client.domain.enums.StatusClient;
 import com.github.andreluizdev12.logiflow.client.domain.vos.Document;
 import com.github.andreluizdev12.logiflow.client.domain.vos.Email;
+import com.github.andreluizdev12.logiflow.client.exceptions.InvalidClientDataException;
 import com.github.andreluizdev12.logiflow.client.exceptions.InvalidDocumentForPersonTypeException;
+import com.github.andreluizdev12.logiflow.client.exceptions.InvalidPhoneException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -144,14 +146,14 @@ public class Client {
                 .replaceAll("[()\\-\\s]", "");
 
         if (!normalized.matches("\\d+")) {
-            throw new IllegalArgumentException(
+            throw new InvalidPhoneException(
                     "O telefone deve conter somente números"
             );
         }
 
 
         if (normalized.length() < 10 || normalized.length() > 11) {
-            throw new IllegalArgumentException(
+            throw new InvalidPhoneException(
                     "O telefone deve possuir 10 ou 11 dígitos"
             );
         }
@@ -161,14 +163,14 @@ public class Client {
 
     private static String normalizeRequired(String value, String message) {
         if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException(message);
+            throw new InvalidClientDataException(message);
         }
         return value.trim();
     }
 
     private static PersonType requirePersonType(PersonType personType) {
         if (personType == null) {
-            throw new IllegalArgumentException("O tipo de pessoa é obrigatório");
+            throw new InvalidClientDataException("O tipo de pessoa é obrigatório");
         }
         return personType;
     }
@@ -193,7 +195,7 @@ public class Client {
     public void changeName(String name){
 
         if (name == null || name.trim().length() < 3 || name.trim().length() > 150) {
-            throw new IllegalArgumentException(
+            throw new InvalidClientDataException(
                     "O nome deve ter entre 3 e 150 caracteres"
             );
         }

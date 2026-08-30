@@ -1,5 +1,6 @@
 package com.github.andreluizdev12.logiflow.client.domain.vos;
 
+import com.github.andreluizdev12.logiflow.client.exceptions.EmailInvalidException;
 import jakarta.persistence.Embeddable;
 
 import java.util.Objects;
@@ -28,19 +29,19 @@ public class Email {
 
     public static Email of(String email) {
         if (email == null || email.isBlank()) {
-            throw new IllegalArgumentException("E-mail é obrigatório");
+            throw new EmailInvalidException("E-mail é obrigatório");
         }
 
         String normalized = email.trim().toLowerCase();
 
         if (normalized.length() > MAX_LENGTH) {
-            throw new IllegalArgumentException(
+            throw new EmailInvalidException(
                     "E-mail deve possuir no máximo " + MAX_LENGTH + " caracteres"
             );
         }
 
         if (!EMAIL_PATTERN.matcher(normalized).matches()) {
-            throw new IllegalArgumentException("E-mail inválido");
+            throw new EmailInvalidException("E-mail inválido");
         }
 
         return new Email(normalized);
